@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "d:/Github/EXPO_04",
-      "program": "d:/Github/EXPO_04/build/Debug/outDebug",
+      "cwd": "d:/Github/EXPO_04/Matrix_matrix",
+      "program": "d:/Github/EXPO_04/Matrix_matrix/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
