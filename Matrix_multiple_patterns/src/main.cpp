@@ -1,12 +1,14 @@
 #include <Arduino.h>
 #include <FastLED.h>
 
-#define LED_PIN 3
+#define LED_PIN 2
 
 #define COLOR_ORDER GRB
 #define CHIPSET WS2811
 
-#define BRIGHTNESS 64
+int duration = 10000; // duration of effect
+
+#define BRIGHTNESS 255
 unsigned long time = 0;
 long previousTime = 0;
 uint16_t _plasmaShift = (random8(0, 5) * 32) + 64;
@@ -262,29 +264,57 @@ void fire()
 }
 void loop()
 {
-  time = millis();
-  if (time <= 60000)
+  time = 0;
+  /*while (time < 300000 / 2)
+  {
+    for (time = 0; time == 300000 / 2; time++)
+    {
+      if (time <= 60000)
+      {
+        circle();
+      }
+      else if (time >= 60000 / 2 && time <= 120000 / 2)
+      {
+        matrixmovie();
+      }
+      else if (time >= 120000 / 2 && time <= 180000 / 2)
+      {
+        plasma();
+      }
+      else if (time >= 180000 / 2 && time <= 240000 / 2)
+      {
+        crosshatch();
+      }
+      else if (time >= 240000 / 2 && time <= 300000 / 2)
+      {
+        fire();
+      }
+    }
+  }
+}*/
+  for (int x = 0; x < duration; x++)
   {
     circle();
+    delay(0.5);
   }
-  else if (time >= 60000 && time <= 120000)
+  for (int x = 0; x < duration; x++)
   {
     matrixmovie();
+    delay(0.5);
   }
-  else if (time >= 120000 && time <= 180000)
+  for (int x = 0; x < duration; x++)
   {
     plasma();
+    delay(0.5);
   }
-  else if (time >= 180000 && time <= 240000)
+  for (int x = 0; x < duration; x++)
   {
     crosshatch();
+    delay(0.5);
   }
-  else if (time >= 240000 && time <= 300000)
+  for (int x = 0; x < duration; x++)
   {
     fire();
-  }
-  else if (time >= 300000)
-  {
-    time = 0;
+    delay(0.5);
   }
 }
