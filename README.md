@@ -1,2 +1,3 @@
-# EXPO_04
-test
+DirPin 20
+stepPin 19
+LEDpin 2
