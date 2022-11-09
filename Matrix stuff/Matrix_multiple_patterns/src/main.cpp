@@ -264,34 +264,6 @@ void fire()
 }
 void loop()
 {
-  time = 0;
-  /*while (time < 300000 / 2)
-  {
-    for (time = 0; time == 300000 / 2; time++)
-    {
-      if (time <= 60000)
-      {
-        circle();
-      }
-      else if (time >= 60000 / 2 && time <= 120000 / 2)
-      {
-        matrixmovie();
-      }
-      else if (time >= 120000 / 2 && time <= 180000 / 2)
-      {
-        plasma();
-      }
-      else if (time >= 180000 / 2 && time <= 240000 / 2)
-      {
-        crosshatch();
-      }
-      else if (time >= 240000 / 2 && time <= 300000 / 2)
-      {
-        fire();
-      }
-    }
-  }
-}*/
   for (int x = 0; x < duration; x++)
   {
     circle();
