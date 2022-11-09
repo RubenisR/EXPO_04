@@ -1,21 +1,20 @@
 #include <Arduino.h>
 #include <FastLED.h>
-#include <EEPROM.h>
-//#include <JC_Button.h>
+#include <JC_Button.h>
 
 #define LED_PIN           5           // Output pin for LEDs [5]
-//#define MODE_PIN          3           // Input pin for button to change mode [3]
-//#define PLUS_PIN          2           // Input pin for plus button [2]
-//#define MINUS_PIN         4           // Input pin for minus button [4]
-//#define MIC_PIN           A6          // Input pin for microphone [A6]
+#define MODE_PIN          3           // Input pin for button to change mode [3]
+#define PLUS_PIN          2           // Input pin for plus button [2]
+#define MINUS_PIN         4           // Input pin for minus button [4]
+#define MIC_PIN           A6          // Input pin for microphone [A6]
 #define COLOR_ORDER       GRB         // Color order of LED string [GRB]
 #define CHIPSET           WS2812B     // LED string type [WS2182B]
 #define BRIGHTNESS        255          // Overall brightness [50]
 #define LAST_VISIBLE_LED  46         // Last LED that's visible [102]
 #define MAX_MILLIAMPS     5000        // Max current in mA to draw from supply [500]
-//#define SAMPLE_WINDOW     100         // How many ms to sample audio for [100]
-//#define DEBOUNCE_MS       20          // Number of ms to debounce the button [20]
-//#define LONG_PRESS        500         // Number of ms to hold the button to count as long press [500]
+#define SAMPLE_WINDOW     100         // How many ms to sample audio for [100]
+#define DEBOUNCE_MS       20          // Number of ms to debounce the button [20]
+#define LONG_PRESS        500         // Number of ms to hold the button to count as long press [500]
 #define PATTERN_TIME      10          // Seconds to show each pattern on autoChange [10]
 #define kMatrixWidth      8          // Matrix width [15]
 #define kMatrixHeight     8          // Matrix height [11]
@@ -35,7 +34,7 @@ int freeRam () {
 
 
 // Button stuff
-uint8_t buttonPushCounter = 10;
+uint8_t buttonPushCounter = 0;
 uint8_t state = 0;
 bool autoChangeVisuals = true; //because there is no button
 Button modeBtn(MODE_PIN, DEBOUNCE_MS);
@@ -43,8 +42,7 @@ Button plusBtn(PLUS_PIN, DEBOUNCE_MS);
 Button minusBtn(MINUS_PIN, DEBOUNCE_MS);
 
 void incrementButtonPushCounter() {
-  buttonPushCounter = (buttonPushCounter + 1) %11;
-  EEPROM.write(1, buttonPushCounter);
+  buttonPushCounter = (buttonPushCounter + 1) %9;
 }
 
 // Include various patterns
@@ -89,19 +87,15 @@ void setup() {
   FastLED.setBrightness(brightness);
   FastLED.clear(true);
 
-/*
   modeBtn.begin();
   plusBtn.begin();
   minusBtn.begin();
-  buttonPushCounter = (int)EEPROM.read(1);    // load previous setting
-*/
 
   Serial.begin(57600);
   Serial.print(F("Starting pattern "));
   Serial.println(buttonPushCounter);
 }
 
-/*
 void checkBrightnessButton() {
   // On all none-sound reactive patterns, plus and minus control the brightness
   plusBtn.read();
@@ -163,7 +157,6 @@ bool checkModeButton() {
       }
       break;
   }
-*/
 
   if(autoChangeVisuals){
     EVERY_N_SECONDS(PATTERN_TIME) {
@@ -254,37 +247,39 @@ void runSnake(){
 void loop() {
   switch (buttonPushCounter) {
     case 0:
-      runSound();
-      break;
-    case 1:
       runRainbow();
       break;
-    case 2:
+    case 1:
       runFire();
       break;
-    case 3:
+    case 2:
       runSquares();
       break;
-    case 4:
-      runCircles();
-      break;
-    case 5:
+    case 3:
       runPlasma();
       break;
-    case 6:
+    case 4:
       runMatrix();
       break;
-    case 7:
+    case 5:
       runCrossHatch();
       break;
-    case 8:
+    case 6:
       runDrops();
       break;
-    case 9:
+    case 7:
       runNoise();
       break;
-    case 10:
+    case 8:
       runSnake();
       break;
+      /*
+    case 9:
+      runSound();
+      break;
+    case 10:
+      runCircles();
+      break;
+      */
   }
 }
