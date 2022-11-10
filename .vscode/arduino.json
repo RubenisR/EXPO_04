@@ -1,0 +1,5 @@
+{
+    "board": "arduino:samd:nano_33_iot",
+    "programmer": "arduino:atmel_ice",
+    "sketch": "Matrix stuff\\M_LED_Matrix_INO\\M_LED_Matrix_INO.ino"
+}
